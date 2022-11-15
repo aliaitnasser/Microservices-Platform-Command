@@ -68,3 +68,4 @@ E:\Work\.Net\Microservices\PlatformService\obj\Debug\net5.0\staticwebassets\msbu
 E:\Work\.Net\Microservices\PlatformService\obj\Debug\net5.0\staticwebassets\msbuild.build.PlatformService.props
 E:\Work\.Net\Microservices\PlatformService\obj\Debug\net5.0\staticwebassets\msbuild.buildMultiTargeting.PlatformService.props
 E:\Work\.Net\Microservices\PlatformService\obj\Debug\net5.0\staticwebassets\msbuild.buildTransitive.PlatformService.props
+E:\Work\.Net\Microservices\PlatformService\bin\Debug\net5.0\RabbitMQ.Client.dll

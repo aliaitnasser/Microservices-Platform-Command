@@ -43,3 +43,4 @@ E:\Work\.Net\Microservices\CommandService\obj\Debug\net5.0\refint\CommandService
 E:\Work\.Net\Microservices\CommandService\obj\Debug\net5.0\CommandService.pdb
 E:\Work\.Net\Microservices\CommandService\obj\Debug\net5.0\CommandService.genruntimeconfig.cache
 E:\Work\.Net\Microservices\CommandService\obj\Debug\net5.0\ref\CommandService.dll
+E:\Work\.Net\Microservices\CommandService\bin\Debug\net5.0\RabbitMQ.Client.dll

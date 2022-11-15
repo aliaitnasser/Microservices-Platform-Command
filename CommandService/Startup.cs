@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CommandService.AsyncDataServices;
 using CommandService.Data;
+using CommandService.EventProcessing;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,12 +30,16 @@ namespace CommandService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<ICommandRepo, CommandRepo>();
-
             services.AddDbContext<AppDbContext>(opt => 
             {
                 opt.UseInMemoryDatabase("InMem");
             });
+
+            services.AddScoped<ICommandRepo, CommandRepo>();
+
+            services.AddSingleton<IEventProcessor,EventProcessor>();
+            //adding the message bus subscriber
+            services.AddHostedService<MessageBusSubscriber>();
 
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

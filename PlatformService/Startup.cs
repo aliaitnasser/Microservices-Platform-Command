@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using PlatformService.AsyncDataServices;
 using PlatformService.Data;
 using PlatformService.SyncDataServices.Http;
 
@@ -46,11 +47,15 @@ namespace PlatformService
             // Registring The PlatformRepo with th Interface IPlatformRpo
             services.AddScoped<IPlatformRepo, PlatformRepo>();
 
+
             // Regestring AutoMapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             // Registring the CommandDataClient Syncronization Service
             services.AddHttpClient<ICommandDataClient, CommandDataClient>();
+            
+            //Registring ths Async CLient with the Interface
+            services.AddSingleton<IMessageBusClient, MessageBusClient>();
            
             services.AddControllers();
             services.AddSwaggerGen(c =>
