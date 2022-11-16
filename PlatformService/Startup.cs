@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +16,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using PlatformService.AsyncDataServices;
 using PlatformService.Data;
+using PlatformService.SyncDataServices.Grpc;
 using PlatformService.SyncDataServices.Http;
 
 namespace PlatformService
@@ -33,10 +36,12 @@ namespace PlatformService
         public void ConfigureServices(IServiceCollection services)
         {
             //Add the DbContext
-            if(_env.IsProduction())
+            if (_env.IsProduction())
             {
                 Console.WriteLine("---> Using SQL Server Db in Production");
-                services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("PlatformConn")));
+                services.AddDbContext<AppDbContext>(
+                    opt => opt.UseSqlServer(Configuration.GetConnectionString("PlatformConn"))
+                );
             }
             else
             {
@@ -47,16 +52,16 @@ namespace PlatformService
             // Registring The PlatformRepo with th Interface IPlatformRpo
             services.AddScoped<IPlatformRepo, PlatformRepo>();
 
-
             // Regestring AutoMapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             // Registring the CommandDataClient Syncronization Service
             services.AddHttpClient<ICommandDataClient, CommandDataClient>();
-            
+
             //Registring ths Async CLient with the Interface
             services.AddSingleton<IMessageBusClient, MessageBusClient>();
-           
+
+            services.AddGrpc();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -76,7 +81,7 @@ namespace PlatformService
                 );
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
@@ -85,6 +90,12 @@ namespace PlatformService
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapGrpcService<GrpcPlatformService>();
+
+                endpoints.MapGet("/proto/platform.proto", async context =>
+                {
+                    await context.Response.WriteAsync(File.ReadAllText("Proto/platform.proto"));
+                });
             });
 
             // Calling the static class PrepDB to populate our database with data
