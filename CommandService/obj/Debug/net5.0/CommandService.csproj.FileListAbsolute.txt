@@ -1,5 +1,4 @@
 E:\Work\.Net\Microservices\CommandService\bin\Debug\net5.0\appsettings.Development.json
-E:\Work\.Net\Microservices\CommandService\bin\Debug\net5.0\appsettings.json
 E:\Work\.Net\Microservices\CommandService\bin\Debug\net5.0\CommandService.exe
 E:\Work\.Net\Microservices\CommandService\bin\Debug\net5.0\CommandService.deps.json
 E:\Work\.Net\Microservices\CommandService\bin\Debug\net5.0\CommandService.runtimeconfig.json
@@ -48,3 +47,4 @@ E:\Work\.Net\Microservices\CommandService\bin\Debug\net5.0\Google.Protobuf.dll
 E:\Work\.Net\Microservices\CommandService\bin\Debug\net5.0\Grpc.Core.Api.dll
 E:\Work\.Net\Microservices\CommandService\bin\Debug\net5.0\Grpc.Net.Client.dll
 E:\Work\.Net\Microservices\CommandService\bin\Debug\net5.0\Grpc.Net.Common.dll
+E:\Work\.Net\Microservices\CommandService\bin\Debug\net5.0\appsettings.Production.json
